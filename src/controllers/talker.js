@@ -1,15 +1,11 @@
 const fs = require('fs/promises');
+const rescue = require('express-rescue');
 
 const TALKER_FILE_PATH = './talker.json';
 
-async function getTalkers(_req, res, next) {
-  try {
-    const fileContent = await fs.readFile(TALKER_FILE_PATH, 'utf-8');
-    const talkers = JSON.parse(fileContent);
-    res.status(200).json(talkers);
-  } catch (error) {
-    next(error);
-  }
-}
+exports.getTalkers = rescue(async (_req, res) => {
+  const fileContent = await fs.readFile(TALKER_FILE_PATH, 'utf-8');
+  const talkers = JSON.parse(fileContent);
 
-module.exports = { getTalkers };
+  res.status(200).json(talkers);
+});
