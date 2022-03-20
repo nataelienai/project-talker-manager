@@ -1,4 +1,4 @@
-const { generateToken } = require('../utils/token-utils');
+const { generateToken } = require('../utils/crypto-utils');
 
 const token = generateToken();
 
