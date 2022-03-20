@@ -1,16 +1,14 @@
 const rescue = require('express-rescue');
-const readParsedContentFromFile = require('../utils/readParsedContentFromFile');
-
-const TALKER_FILE_PATH = './talker.json';
+const { getTalkersFromDatabase } = require('../utils/fs-utils');
 
 const getTalkers = rescue(async (_req, res) => {
-  const talkers = await readParsedContentFromFile(TALKER_FILE_PATH);
+  const talkers = await getTalkersFromDatabase();
   res.status(200).json(talkers);
 });
 
 const getTalker = rescue(async (req, res, next) => {
   const id = Number(req.params.id);
-  const talkers = await readParsedContentFromFile(TALKER_FILE_PATH);
+  const talkers = await getTalkersFromDatabase();
   const wantedTalker = talkers.find((talker) => talker.id === id);
 
   if (!wantedTalker) {
