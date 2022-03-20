@@ -1,12 +1,10 @@
-const fs = require('fs/promises');
 const rescue = require('express-rescue');
+const readParsedContentFromFile = require('../utils/readParsedContentFromFile');
 
 const TALKER_FILE_PATH = './talker.json';
 
 const getTalkers = rescue(async (_req, res) => {
-  const fileContent = await fs.readFile(TALKER_FILE_PATH, 'utf-8');
-  const talkers = JSON.parse(fileContent);
-
+  const talkers = await readParsedContentFromFile(TALKER_FILE_PATH);
   res.status(200).json(talkers);
 });
 
