@@ -4,6 +4,7 @@ const {
   getAvailableId,
   addTalker,
   getTalkerById,
+  editTalker,
 } = require('../utils/db-utils');
 
 const getTalkers = rescue(async (_req, res) => {
@@ -33,8 +34,18 @@ const createTalker = rescue(async (req, res) => {
   res.status(201).json(talker);
 });
 
+const updateTalker = rescue(async (req, res) => {
+  const id = Number(req.params.id);
+  const { name, age, talk } = req.body;
+  const talker = { id, name, age, talk };
+
+  await editTalker(talker);
+  res.status(200).json(talker);
+});
+
 module.exports = {
   getTalker,
   getTalkers,
   createTalker,
+  updateTalker,
 };
