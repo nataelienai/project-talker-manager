@@ -1,4 +1,4 @@
-const isTalkValid = (talk) => Boolean(talk && talk.rate && talk.watchedAt);
+const isTalkValid = (talk) => Boolean(talk && (talk.rate || talk.rate === 0) && talk.watchedAt);
 
 const isRateValid = (rate) => !Number.isNaN(rate) && rate >= 1 && rate <= 5;
 
