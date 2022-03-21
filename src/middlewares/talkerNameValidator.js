@@ -1,9 +1,9 @@
 const validateTalkerName = (name) => {
   if (!name) {
-    return { error: 'O campo "name" é obrigatório', isValid: true };
+    return { error: 'O campo "name" é obrigatório', isValid: false };
   }
   if (name.length < 3) {
-    return { error: 'O "name" deve ter pelo menos 3 caracteres', isValid: true };
+    return { error: 'O "name" deve ter pelo menos 3 caracteres', isValid: false };
   }
   return { error: '', isValid: true };
 };
