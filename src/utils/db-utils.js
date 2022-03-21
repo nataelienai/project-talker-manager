@@ -32,10 +32,18 @@ const editTalker = async (editedTalker) => {
   await writeTalkers(talkers);
 };
 
+const removeTalker = async (id) => {
+  const talkers = await readTalkers();
+  const updatedTalkers = talkers.filter((talker) => talker.id !== id);
+
+  await writeTalkers(updatedTalkers);
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
   getAvailableId,
   addTalker,
   editTalker,
+  removeTalker,
 };

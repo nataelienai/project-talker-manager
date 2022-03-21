@@ -8,6 +8,7 @@ const {
   getTalker,
   createTalker,
   updateTalker,
+  deleteTalker,
 } = require('../controllers/talker');
 
 const router = express.Router();
@@ -21,5 +22,7 @@ router.post('/', tokenAuthenticator, talkerNameValidator, talkerAgeValidator,
 
 router.put('/:id', tokenAuthenticator, talkerNameValidator, talkerAgeValidator,
   talkerTalkValidator, updateTalker);
+
+router.delete('/:id', tokenAuthenticator, deleteTalker);
 
 module.exports = router;

@@ -5,6 +5,7 @@ const {
   addTalker,
   getTalkerById,
   editTalker,
+  removeTalker,
 } = require('../utils/db-utils');
 
 const getTalkers = rescue(async (_req, res) => {
@@ -30,7 +31,6 @@ const createTalker = rescue(async (req, res) => {
   const talker = { id, name, age, talk };
 
   await addTalker(talker);
-
   res.status(201).json(talker);
 });
 
@@ -43,9 +43,17 @@ const updateTalker = rescue(async (req, res) => {
   res.status(200).json(talker);
 });
 
+const deleteTalker = rescue(async (req, res) => {
+  const id = Number(req.params.id);
+
+  await removeTalker(id);
+  res.status(204).end();
+});
+
 module.exports = {
   getTalker,
   getTalkers,
   createTalker,
   updateTalker,
+  deleteTalker,
 };
