@@ -1,5 +1,10 @@
 const rescue = require('express-rescue');
-const { getAllTalkers, getAvailableId, addTalker } = require('../utils/db-utils');
+const {
+  getAllTalkers,
+  getAvailableId,
+  addTalker,
+  getTalkerById,
+} = require('../utils/db-utils');
 
 const getTalkers = rescue(async (_req, res) => {
   const talkers = await getAllTalkers();
@@ -8,15 +13,14 @@ const getTalkers = rescue(async (_req, res) => {
 
 const getTalker = rescue(async (req, res, next) => {
   const id = Number(req.params.id);
-  const talkers = await getAllTalkers();
-  const wantedTalker = talkers.find((talker) => talker.id === id);
+  const talker = await getTalkerById(id);
 
-  if (!wantedTalker) {
+  if (!talker) {
     const error = new Error('Pessoa palestrante não encontrada');
     error.status = 404;
     return next(error);
   }
-  res.status(200).json(wantedTalker);
+  res.status(200).json(talker);
 });
 
 const createTalker = rescue(async (req, res) => {
