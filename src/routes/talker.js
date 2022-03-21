@@ -1,10 +1,17 @@
 const express = require('express');
-const { getTalkers, getTalker } = require('../controllers/talker');
+const tokenAuthenticator = require('../middlewares/tokenAuthenticator');
+const talkerNameValidator = require('../middlewares/talkerNameValidator');
+const talkerAgeValidator = require('../middlewares/talkerAgeValidator');
+const talkerTalkValidator = require('../middlewares/talkerTalkValidator');
+const { getTalkers, getTalker, createTalker } = require('../controllers/talker');
 
 const router = express.Router();
 
 router.get('/', getTalkers);
 
 router.get('/:id', getTalker);
+
+router.post('/', tokenAuthenticator, talkerNameValidator, talkerAgeValidator,
+  talkerTalkValidator, createTalker);
 
 module.exports = router;
