@@ -1,15 +1,14 @@
 const rescue = require('express-rescue');
-const { readTalkers } = require('../utils/fs-utils');
-const { getAvailableId, addTalker } = require('../utils/db-utils');
+const { getAllTalkers, getAvailableId, addTalker } = require('../utils/db-utils');
 
 const getTalkers = rescue(async (_req, res) => {
-  const talkers = await readTalkers();
+  const talkers = await getAllTalkers();
   res.status(200).json(talkers);
 });
 
 const getTalker = rescue(async (req, res, next) => {
   const id = Number(req.params.id);
-  const talkers = await readTalkers();
+  const talkers = await getAllTalkers();
   const wantedTalker = talkers.find((talker) => talker.id === id);
 
   if (!wantedTalker) {

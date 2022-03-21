@@ -1,5 +1,7 @@
 const { readTalkers, writeTalkers } = require('./fs-utils');
 
+const getAllTalkers = () => readTalkers();
+
 const getAvailableId = async () => {
   const talkers = await readTalkers();
   const lastId = talkers.reduce((maxId, { id }) => (
@@ -16,6 +18,7 @@ const addTalker = async (talker) => {
 };
 
 module.exports = {
+  getAllTalkers,
   getAvailableId,
   addTalker,
 };
