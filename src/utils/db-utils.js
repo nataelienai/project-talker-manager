@@ -27,9 +27,8 @@ const addTalker = async (talker) => {
 const editTalker = async (editedTalker) => {
   const talkers = await readTalkers();
   const index = talkers.findIndex((talker) => talker.id === editedTalker.id);
-  console.log({ ...editedTalker, talk: { ...editedTalker.talk } }, 'destruct');
+
   talkers[index] = { ...editedTalker, talk: { ...editedTalker.talk } };
-  console.log(talkers, 'talkers');
   await writeTalkers(talkers);
 };
 
