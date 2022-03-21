@@ -9,11 +9,14 @@ const {
   createTalker,
   updateTalker,
   deleteTalker,
+  searchTalker,
 } = require('../controllers/talker');
 
 const router = express.Router();
 
 router.get('/', getTalkers);
+
+router.get('/search', tokenAuthenticator, searchTalker);
 
 router.get('/:id', getTalker);
 

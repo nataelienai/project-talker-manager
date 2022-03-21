@@ -20,6 +20,7 @@ const getAvailableId = async () => {
 
 const addTalker = async (talker) => {
   const talkers = await readTalkers();
+
   talkers.push(talker);
   await writeTalkers(talkers);
 };
@@ -39,6 +40,12 @@ const removeTalker = async (id) => {
   await writeTalkers(updatedTalkers);
 };
 
+const getTalkersByName = async (name) => {
+  const talkers = await readTalkers();
+
+  return talkers.filter((talker) => talker.name.includes(name));
+};
+
 module.exports = {
   getAllTalkers,
   getTalkerById,
@@ -46,4 +53,5 @@ module.exports = {
   addTalker,
   editTalker,
   removeTalker,
+  getTalkersByName,
 };
